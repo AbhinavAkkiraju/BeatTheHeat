@@ -21,6 +21,14 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet("current")]
-    public ValueTask<WeatherForecast?> CurrentWeather(double latitude, double longitude) =>
-        _openWeatherService.Current(latitude, longitude);
+    public async ValueTask<IActionResult> CurrentWeather(double latitude, double longitude)
+    {
+        if (latitude < -90 || latitude > 90)
+            return BadRequest("Latitude must be between -90 and 90");
+
+        if (longitude < -180 || longitude > 180)
+            return BadRequest("Longitude must be between -180 and 180");
+
+        return Ok(await _openWeatherService.Current(latitude, longitude));
+    }
 }
