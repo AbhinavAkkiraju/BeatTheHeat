@@ -5,10 +5,10 @@ on:
     - deploy-to-azure
 env:
   AZURE_WEBAPP_NAME: beattheheat
-  AZURE_WEBAPP_PACKAGE_PATH: BeatTheHeat.Api/publish
+  AZURE_WEBAPP_PACKAGE_PATH: BeatTheHeat/BeatTheHeat.Api/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
-  WORKING_DIRECTORY: BeatTheHeat.Api
+  WORKING_DIRECTORY: BeatTheHeat/BeatTheHeat.Api
 jobs:
   build:
     runs-on: ubuntu-latest
