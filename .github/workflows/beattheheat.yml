@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App beattheheat
 on:
   push:
     branches:
-    - deploy-to-azure
+    - main
 env:
   AZURE_WEBAPP_NAME: beattheheat
   AZURE_WEBAPP_PACKAGE_PATH: ./src/BeatTheHeat.Api/publish
