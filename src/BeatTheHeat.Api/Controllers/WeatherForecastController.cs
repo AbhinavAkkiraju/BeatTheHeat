@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BeatTheHeat.Backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("weatherForecast")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -12,21 +12,15 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly OpenWeatherService _openWeatherService;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, OpenWeatherService openWeatherService)
     {
         _logger = logger;
+        _openWeatherService = openWeatherService ?? throw new ArgumentNullException(nameof(openWeatherService));
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
-    }
+    [HttpGet("current")]
+    public ValueTask<WeatherForecast?> CurrentWeather(double latitude, double longitude) =>
+        _openWeatherService.Current(latitude, longitude);
 }
