@@ -1,4 +1,4 @@
 ﻿namespace BeatTheHeat.Web.Models
 {
-    public record Location(double Lat, double Lon, string Address);
+    public record struct Location(double Lat, double Lon, string Address);
 }

@@ -7,8 +7,11 @@ global using System.Linq;
 global using System.Reflection;
 global using System.Text;
 
+// Use Dependency injection.
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure a CosmosClient with database and containers.
+// It has to be synchronized but it should be fine for this case.
 async Task<CosmosClient> InitCosmosClientAsync()
 {
     CosmosClient cosmos = new(builder?.Configuration["CosmosDB:CONN_STR"]);
@@ -46,6 +49,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Show swagger even in prod, this should be changed eventually.
 if (true || app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -62,7 +66,6 @@ app.UseRouting();
 
 app.MapControllers();
 app.MapRazorPages();
-
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
