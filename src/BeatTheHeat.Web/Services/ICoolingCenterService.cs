@@ -12,5 +12,5 @@ public interface ICoolingCenterService
 
     Task DeleteCoolingCenterAsync(CoolingCenter coolingCenter);
 
-    Task<IReadOnlyList<CoolingCenter>> GetNear(double lat, double lon); 
+    Task<IEnumerable<CoolingCenter>> GetNear(double lat, double lon);
 }
