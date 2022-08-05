@@ -1,4 +1,6 @@
+import 'package:beattheheat/pages/navpages/detail_page1.dart';
 import 'package:beattheheat/widgets/app_large_text.dart';
+import 'package:beattheheat/widgets/responsive_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -65,6 +67,13 @@ class _WaterPageState extends State<WaterPage> with TickerProviderStateMixin {
                     itemBuilder: (BuildContext context, int index) {
                       if (index == 0) {
                         return Container(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const DetailPage1()));
+                            },),
                           margin: const EdgeInsets.only(right: 15, top: 17),
                           width: 200,
                           height: 300,

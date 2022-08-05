@@ -1,6 +1,7 @@
 import 'package:beattheheat/cubit/app_cubit_logics.dart';
 import 'package:beattheheat/cubit/app_cubits.dart';
 import 'package:beattheheat/pages/navpages/detail_page1.dart';
+import 'package:beattheheat/pages/navpages/detail_page2.dart';
 import 'package:beattheheat/pages/navpages/main_page.dart';
 import 'package:beattheheat/pages/welcome_page.dart';
 import 'package:beattheheat/services/data_services.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           create: (context)=>AppCubits(
           data: DataServices(),
         ),
-          child: WelcomePage(),
+          child: DetailPage2(),
         )
       );
   }

@@ -8,14 +8,14 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../../widgets/app_text.dart';
 
-class DetailPage1 extends StatefulWidget {
-  const DetailPage1({Key? key}) : super(key: key);
+class DetailPage2 extends StatefulWidget {
+  const DetailPage2({Key? key}) : super(key: key);
 
   @override
-  State<DetailPage1> createState() => _DetailPage1State();
+  State<DetailPage2> createState() => _DetailPage2State();
 }
 
-class _DetailPage1State extends State<DetailPage1> {
+class _DetailPage2State extends State<DetailPage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _DetailPage1State extends State<DetailPage1> {
                 height: 400,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("img/waterbottle.jpg"),
+                    image: AssetImage("img/fruitwater.jpeg"),
                     fit: BoxFit.cover
                   ),
                 ),
@@ -70,7 +70,7 @@ class _DetailPage1State extends State<DetailPage1> {
                   children: [
                     Row(
                       children: [
-                        AppLargeText(text: "Water Intake?", color: Colors.black.withOpacity(0.8))
+                        AppLargeText(text: "Fruit Water Recipe", color: Colors.black.withOpacity(0.8))
                       ],
                     ),
                     SizedBox(height: 10,),
@@ -78,13 +78,13 @@ class _DetailPage1State extends State<DetailPage1> {
                       children: [
                         Icon(Icons.location_on, color: Colors.orange),
                         SizedBox(width: 5,),
-                        AppText(text: "mayoclinic.org", color: Colors.orange)                        
+                        AppText(text: "simpleveganblog.com", color: Colors.orange)                        
                       ]
                     ),
                     SizedBox(height: 20),
                     Row(
                       children: [
-                        AppText(text: "According to the Mayo Clinic: \n\n      Men need about 15.5 cups (3.7 liters) \n      of fluids a day \n\n     Women need about 11.5 cups (2.7 liters) \n      of fluids a day\n\nWater:\n     - Gets rid of wastes through urination, \n        perspiration, and bowel movements\n     - Keeps your temperature normal\n     - Lubricates and cushions joints\n     - Protects sensitive tissues"),
+                        AppText(text: "Ingredients:\n     - 1 orange, sliced\n     - 6 strawberries, sliced\n     - 10 mint leaves\n     - 4 cups water (1 liter)\n\nInstructions:\n     - Place the sliced fruits and the mint \n        leaves in a glass jar\n     - Pour the water and refrigerate for at \n        least 1 or 2 hours or overnight. The \n        longer it sits, the more flavorful the water\n        will be."),
                       ]
                     ),
 
