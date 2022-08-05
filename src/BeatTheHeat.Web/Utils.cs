@@ -2,8 +2,15 @@
 
 public static class Utils
 {
+    /// <summary>
+    /// List of countries for database partitioning.
+    /// </summary>
     public static IReadOnlySet<string> Countries { get; }
 
+    /// <summary>
+    /// Init the countries.
+    /// </summary>
+    /// <exception cref="Exception">Failed to get internal resource.</exception>
     static Utils()
     {
         var assembly = Assembly.GetExecutingAssembly();

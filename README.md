@@ -30,6 +30,7 @@ Refer to [appsettings.json](https://github.com/AbhinavAkkiraju/BeatTheHeat/blob/
 * SMTP:* -> Fill in SMTP info for email sending using StartTLS encryption.
 * AzureGeolocation:APIKey -> https://azure.microsoft.com/en-us/services/azure-maps/
     * Use the shared key.
+* AdminPassword -> Use with "admin" as email to login as admin.
 
 Build/Run with [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
 
@@ -81,6 +82,44 @@ Build/Run with [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6
                 "latitude": 47.66982,
                 "address": "5614 22nd Avenue Northwest, Seattle, WA 98107, United States ",
                 "description": "Seattle Public Library"
+            }
+        ]
+        ```
+
+* `/api/v1/geolocation`
+    * `/geocode` [GET]
+        * __Gets coordinates for an address query.__
+        * *Required query Parameters*:
+            * `query`
+        * Example: 
+        ```json
+        "GET https://beattheheat.azurewebsites.net/api/v1/Geolocation/geocode?query=one%20microsoft%20way%20redmond
+
+        [
+            {
+                "lat": 47.64016,
+                "lon": -122.1245,
+                "address": "Microsoft Way, Redmond, WA 98052, United States "
+            },
+            {
+                "lat": 47.64351,
+                "lon": -122.13056,
+                "address": "157th Avenue Northeast, Redmond, WA 98052, United States "
+            },
+            {
+                "lat": 35.14143,
+                "lon": -80.91976,
+                "address": "Microsoft Way, Charlotte, NC, United States "
+            },
+            {
+                "lat": 47.67433,
+                "lon": -122.12327,
+                "address": "Redmond Way, Redmond, WA, United States "
+            },
+            {
+                "lat": 35.92012,
+                "lon": -78.5379,
+                "address": "One World Way, Wake Forest, NC 27587, United States "
             }
         ]
         ```

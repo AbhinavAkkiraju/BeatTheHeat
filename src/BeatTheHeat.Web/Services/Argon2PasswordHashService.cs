@@ -3,12 +3,15 @@
 using Konscious.Security.Cryptography;
 using System.Security.Cryptography;
 
+/// <summary>
+/// Password hash with Argon2id.
+/// </summary>
 public class Argon2PasswordHashService : IPasswordHashService
 {
     public PasswordHash CreatePasswordHash(string password)
     {
         var salt = RandomNumberGenerator.GetBytes(16);
-        return new PasswordHash(GetHash(password, salt), salt);
+        return new(GetHash(password, salt), salt);
     }
 
     public bool VerifyPasswordHash(string password, PasswordHash passwordHash) =>
