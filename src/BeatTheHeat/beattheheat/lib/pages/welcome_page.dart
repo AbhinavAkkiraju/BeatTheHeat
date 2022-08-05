@@ -19,7 +19,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: PageView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: 4,
+          itemCount: 5,
           itemBuilder: (_, index) {
             return Container(
               width: double.maxFinite,
@@ -65,10 +65,12 @@ class _WelcomePageState extends State<WelcomePage> {
                             return Container(
                               margin: const EdgeInsets.only(bottom: 2.5),
                               width: 8,
-                              height: index==indexDots?25:8,
+                              height: index == indexDots ? 25 : 8,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
-                                color: index==indexDots?Colors.orange:Colors.orange.withOpacity(0.3),
+                                color: index == indexDots
+                                    ? Colors.orange
+                                    : Colors.orange.withOpacity(0.3),
                               ),
                             );
                           },

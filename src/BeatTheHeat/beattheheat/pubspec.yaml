@@ -61,6 +61,9 @@ flutter:
   assets:
     - img/desert.png
     - img/arrow.png
+    - img/waterbottle.jpg
+    - quantity.jpeg
+    - watergun.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
