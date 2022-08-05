@@ -25,18 +25,30 @@ public class CoolingCenterService : ICoolingCenterService
 
     public Task UpdateCoolingCenterAsync(CoolingCenter coolingCenter) =>
         _container.ReplaceItemAsync(coolingCenter, coolingCenter.Id.ToString(), new(coolingCenter.Country));
- 
+
     public Task DeleteCoolingCenterAsync(CoolingCenter coolingCenter) =>
         _container.DeleteItemAsync<CoolingCenter>(coolingCenter.Id.ToString(), new(coolingCenter.Country));
 
-    public async Task<IReadOnlyList<CoolingCenter>> GetNear(double lat, double lon)
+    private async Task<CoolingCenter[]> GetNearWithin(double lat, double lon, int km)
     {
-        // NO TIME TO OPTIMIZE QUERY.
-        var iterator = _container.GetItemQueryIterator<CoolingCenter>($"SELECT * FROM c where ST_DISTANCE(c.Location, {{\"type\": \"Point\", \"coordinates\":[{lon}, {lat}]}}) < 100000");
+        QueryDefinition queryDefinition = new("SELECT * FROM c where ST_DISTANCE(c.Location, {\"type\": \"Point\", \"coordinates\":[@lon, @lat]}) < @km");
+        var iterator = _container.GetItemQueryIterator<CoolingCenter>(queryDefinition.WithParameter("@lat", lat).WithParameter("@lon", lon).WithParameter("@km", km * 1000));
         List<CoolingCenter> list = new();
         while (iterator.HasMoreResults)
             list.AddRange(await iterator.ReadNextAsync());
         GeoCoordinate s = new(lat, lon);
-        return list.OrderByDescending(x => s.GetDistanceTo(new(x.Location.Position.Latitude, x.Location.Position.Longitude))).Take(5).ToList();
+        return list.OrderBy(x => s.GetDistanceTo(new(x.Location.Position.Latitude, x.Location.Position.Longitude))).Take(5).ToArray();
+    }
+
+    public async Task<IEnumerable<CoolingCenter>> GetNear(double lat, double lon)
+    {
+        int[] distances = { 5, 10, 20, 50, 100, 200 };
+        var ret = Array.Empty<CoolingCenter>();
+        foreach (var dist in distances)
+        {
+            ret = await GetNearWithin(lat, lon, dist);
+            if (ret.Length > 5) break;
+        }
+        return ret;
     }
 }
