@@ -1,18 +1,20 @@
+import 'package:beattheheat/widgets/app_buttons.dart';
 import 'package:beattheheat/widgets/app_large_text.dart';
+import 'package:beattheheat/widgets/responsive_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../../widgets/app_text.dart';
 
-class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
+class DetailPage1 extends StatefulWidget {
+  const DetailPage1({Key? key}) : super(key: key);
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<DetailPage1> createState() => _DetailPage1State();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _DetailPage1State extends State<DetailPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +48,7 @@ class _DetailPageState extends State<DetailPage> {
                 ]
             )),
             Positioned(
-              top: 370,
+              top: 310,
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
                 width: MediaQuery.of(context).size.width,
@@ -68,14 +70,36 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(height: 10,),
                     Row(
                       children: [
-                        Icon(Icons.location_on, color: Color.fromARGB(255, 144, 66, 158)),
-                        AppText(text: "mayoclinic.org", color: Color.fromARGB(255, 144, 66, 158))                        
+                        Icon(Icons.location_on, color: Colors.orange),
+                        SizedBox(width: 5,),
+                        AppText(text: "mayoclinic.org", color: Colors.orange)                        
                       ]
-                    )
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        AppText(text: "According to the Mayo Clinic: \n\n      Men need about 15.5 cups (3.7 liters) \n      of fluids a day \n\n     Women need about 11.5 cups (2.7 liters) \n      of fluids a day\n\nWater:\n     - Gets rid of wastes through urination, \n        perspiration, and bowel movements\n     - Keeps your temperature normal\n     - Lubricates and cushions joints\n     - Protects sensitive tissues"),
+                      ]
+                    ),
+
                   ],
                 ),
               ),
             ),
+            Positioned(
+              bottom: 45,
+              left: 20,
+              right: 20,
+              child: Row(
+                children: [
+                  AppButtons(size: 60, color: Colors.orange, backgroundColor: Colors.white, borderColor: Colors.black, isIcon: true, icon: Icons.favorite_border),
+                  SizedBox(width: 20),
+                  ResponsiveButton(
+                    isResponsive: true,
+                  )
+                ],
+              )
+            )
           ],
         ),
       ),

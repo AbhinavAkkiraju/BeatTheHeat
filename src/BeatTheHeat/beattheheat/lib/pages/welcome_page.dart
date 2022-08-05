@@ -1,3 +1,5 @@
+import 'package:beattheheat/pages/navpages/main_page.dart';
+import 'package:beattheheat/pages/navpages/water_page.dart';
 import 'package:beattheheat/widgets/app_large_text.dart';
 import 'package:beattheheat/widgets/app_text.dart';
 import 'package:beattheheat/widgets/responsive_button.dart';
@@ -19,7 +21,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: PageView.builder(
           scrollDirection: Axis.vertical,
-          itemCount: 5,
+          itemCount: 1,
           itemBuilder: (_, index) {
             return Container(
               width: double.maxFinite,
@@ -46,15 +48,25 @@ class _WelcomePageState extends State<WelcomePage> {
                             width: 250,
                             child: AppText(
                                 text:
-                                    "Our water tracker will tell you how much water to drink each day and how much water to drink every hour.",
+                                    "This app is a submission for the World Youth Coders Hackathon 2022. We really hope you enjoy our project!",
                                 color: Colors.grey,
                                 size: 14),
                           ),
                           SizedBox(
                             height: 40,
                           ),
-                          ResponsiveButton(
-                            width: 120,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MainPage()));
+                            },
+                            child: Container(
+                                width: 200,
+                                child: ResponsiveButton(
+                                  width: 120,
+                                )),
                           )
                         ],
                       ),

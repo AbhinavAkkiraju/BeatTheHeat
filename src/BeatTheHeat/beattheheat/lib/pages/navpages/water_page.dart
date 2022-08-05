@@ -63,36 +63,156 @@ class _WaterPageState extends State<WaterPage> with TickerProviderStateMixin {
                     itemCount: 2,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 15, top: 17),
-                        width: 200,
-                        height: 300,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            image: DecorationImage(
-                              image: AssetImage("img/waterbottle.jpg"),
-                              fit: BoxFit.cover,
-                            )),
-                      );
+                      if (index == 0) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/waterbottle.jpg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      } else {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/quantity.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      }
                     },
                   ),
-                  Text("There"),
-                  Text("Bye"),
+                  ListView.builder(
+                    itemCount: 3,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/fruitwater.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      } else if (index == 1) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/limewatter.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      } else {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/mio.png"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      }
+                    },
+                  ),
+                  ListView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/swimming.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      } else if (index == 1) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/surfing.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      } else if (index == 2) {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/waterskiing.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      }
+                      else {
+                        return Container(
+                          margin: const EdgeInsets.only(right: 15, top: 17),
+                          width: 200,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              image: DecorationImage(
+                                image: AssetImage("img/boating.jpeg"),
+                                fit: BoxFit.cover,
+                              )),
+                        );
+                      }
+                    },
+                  ),
                 ],
               )),
-          SizedBox(height: 5),
+          SizedBox(height: 30),
           Container(
-            child: Align(
-              alignment: Alignment.center,
-              child: Image(
-                image: AssetImage(
-                  "img/watergun.png"
-                  )
-                )
-              )
-            )
-        ],
+            margin: const EdgeInsets.only(left: 20),
+            width: 350,
+            height: 150,
+            decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.black,
+            image: DecorationImage(
+            image: AssetImage("img/water.jpeg"),
+            fit: BoxFit.cover,
+         )),
+      )],
       ),
     );
   }
