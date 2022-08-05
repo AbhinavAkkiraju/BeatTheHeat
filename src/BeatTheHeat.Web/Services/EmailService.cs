@@ -1,9 +1,9 @@
 ﻿namespace BeatTheHeat.Web.Services;
 
-using MimeKit;
-using MimeKit.Text;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using MimeKit;
+using MimeKit.Text;
 
 public class EmailService : IEmailService
 {

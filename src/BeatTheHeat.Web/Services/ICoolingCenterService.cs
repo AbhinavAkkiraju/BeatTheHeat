@@ -1,7 +1,4 @@
 ﻿namespace BeatTheHeat.Web.Services;
-
-using Microsoft.Azure.Cosmos;
-
 public interface ICoolingCenterService
 {
     Task<Guid> CreateCoolingCenterAsync(CoolingCenterDTO coolingCenter, Organization organization);
