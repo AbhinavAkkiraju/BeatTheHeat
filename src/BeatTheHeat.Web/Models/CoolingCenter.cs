@@ -1,7 +1,7 @@
 ﻿namespace BeatTheHeat.Web.Models;
 
-using Newtonsoft.Json;
 using Microsoft.Azure.Cosmos.Spatial;
+using Newtonsoft.Json;
 
 public record CoolingCenter([property: JsonProperty("id")] Guid Id, Guid Organization, string Name, Point Location, string Address, string Description, string Country)
 {
@@ -19,7 +19,7 @@ public record CoolingCenter([property: JsonProperty("id")] Guid Id, Guid Organiz
 public class CoolingCenterDTO
 {
     public string Name { get; set; } = string.Empty;
-    
+
     [Range(-180, 180)]
     public double Longitude { get; set; }
 

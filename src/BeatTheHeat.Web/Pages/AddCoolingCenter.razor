@@ -12,7 +12,12 @@
 <style>
     .thumbnail:hover {
         opacity: 0.7;
-}
+    }
+    .btn:hover {
+        color: white;
+        background-color: red;
+        background-blend-mode: lighten;
+    }
 </style>
 
 <PageTitle>Cooling Center Registration</PageTitle>
@@ -32,7 +37,7 @@
         }
         else
         {
-            <h4>@user?.Name</h4>
+            <h4>Welcome, <small class="text-muted">@user?.Name</small></h4>
             @if (CoolingCenters.Count > 0)
             {
                 @foreach (var coolingCenter in CoolingCenters)
@@ -42,6 +47,10 @@
                             <div class="card-title">@coolingCenter.Name</div>
                             <div class="card-subtitle">@coolingCenter.Address<br/>Lat: @coolingCenter.Location.Position.Latitude Long: @coolingCenter.Location.Position.Longitude</div>
                             <div class="card-body">@coolingCenter.Description</div>
+                            <button class="btn" @onclick="() => DeleteCoolingCenter(coolingCenter)">
+                                <span class="oi oi-trash" aria-hidden="true"></span>
+                            </button>
+                            
                         </div>
                     </div>
                 }
@@ -55,6 +64,9 @@
             {
                 <div class="alert alert-error">@error</div>
             }
+
+            <hr/>
+            <h5>Register new cooling center.</h5>
 
             <EditForm Model="model" Context="coolingCenter" OnValidSubmit="HandleValidSubmit">
                 <DataAnnotationsValidator />
@@ -72,7 +84,7 @@
                     <label for="address">Address</label>
                     @if (location is null)
                     {
-                        <input id="address" @oninput="AddressQueryChanged" @bind-value="addressQuery" class="form-control" />
+                        <input id="address" @oninput="AddressQueryChanged" value="@addressQuery" class="form-control" />
                         @foreach (var res in addressQueryResults)
                         {
                             <div class="card thumbnail" @onclick="() => SelectAddress(res)">
@@ -84,10 +96,10 @@
                     }
                     else
                     {
-                        <input id="address" @oninput="AddressChanged" @bind-value="addressQuery" class="form-control" />
+                        <input id="address" @oninput="AddressChanged" value="@addressQuery" class="form-control" />
                     }
                 </div>
-                @if (location is null)
+                @if (location is null || string.IsNullOrWhiteSpace(model.Name))
                 {
                     <button disabled type="submit" class="btn btn-primary">Register</button>
                 }
@@ -145,8 +157,8 @@
             return;
         }
         model.Address = addressQuery;
-        model.Latitude = location.Lat;
-        model.Longitude = location.Lon;
+        model.Latitude = location.Value.Lat;
+        model.Longitude = location.Value.Lon;
         var id = await CoolingCenterService.CreateCoolingCenterAsync(model, user);
         user.CoolingCenters.Add(id);
         await OrganizationService.UpdateOrganizationAsync(user);
@@ -160,7 +172,7 @@
     private void SelectAddress(Location loc)
     {
         location = loc;
-        addressQuery = location.Address;
+        addressQuery = loc.Address;
     }
 
     private async void OnElapsed(Object? source, System.Timers.ElapsedEventArgs e)
@@ -169,6 +181,7 @@
             string.IsNullOrWhiteSpace(addressQuery) 
             ? Array.Empty<Location>()
             : await GeolocationService.GetAddressesAsync(addressQuery);
+        await InvokeAsync(StateHasChanged);
     }
 
     protected override async Task OnInitializedAsync()
@@ -190,6 +203,19 @@
         }
         loaded = true;
     }
+
+    private async Task DeleteCoolingCenter(CoolingCenter coolingCenter)
+    {
+        if (user is not null)
+        {
+            user.CoolingCenters?.Remove(coolingCenter.Id);
+            await OrganizationService.UpdateOrganizationAsync(user);
+            await CoolingCenterService.DeleteCoolingCenterAsync(coolingCenter);
+            CoolingCenters.Remove(coolingCenter);
+            StateHasChanged();
+        }
+    }
+
     public void Dispose() =>
         timer.Dispose();
 }
