@@ -1,0 +1,195 @@
+﻿@page "/add-cooling-centers"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager
+@inject IOrganizationService OrganizationService
+@inject ICoolingCenterService CoolingCenterService
+@inject IGeolocationService GeolocationService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@implements IDisposable
+
+<style>
+    .thumbnail:hover {
+        opacity: 0.7;
+}
+</style>
+
+<PageTitle>Cooling Center Registration</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        @if (user is null && loaded)
+        {
+            <h3>Unknown error, please log in again.</h3>
+            <NavLink class="nav-link" href="login">Login</NavLink>
+        }
+        else if (!loaded)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status"></div>
+            </div>
+        }
+        else
+        {
+            <h4>@user?.Name</h4>
+            @if (CoolingCenters.Count > 0)
+            {
+                @foreach (var coolingCenter in CoolingCenters)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">@coolingCenter.Name</div>
+                            <div class="card-subtitle">@coolingCenter.Address<br/>Lat: @coolingCenter.Location.Position.Latitude Long: @coolingCenter.Location.Position.Longitude</div>
+                            <div class="card-body">@coolingCenter.Description</div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info">No cooling centers added.</div>
+            }
+
+            @if (!string.IsNullOrEmpty(error))
+            {
+                <div class="alert alert-error">@error</div>
+            }
+
+            <EditForm Model="model" Context="coolingCenter" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="mb-3">
+                    <label for="name">Name</label>
+                    <InputText id="name" @bind-Value="model.Name" class="form-control" />
+                    <ValidationMessage For="@(() => model.Name)" />
+                </div>
+                <div class="mb-3">
+                    <label for="description">Description</label>
+                    <InputText id="description" @bind-Value="model.Description" class="form-control" />
+                    <ValidationMessage For="@(() => model.Description)" />
+                </div>
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    @if (location is null)
+                    {
+                        <input id="address" @oninput="AddressQueryChanged" @bind-value="addressQuery" class="form-control" />
+                        @foreach (var res in addressQueryResults)
+                        {
+                            <div class="card thumbnail" @onclick="() => SelectAddress(res)">
+                                <div class="card-body d-flex flex-row">
+                                    @res.Address
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <input id="address" @oninput="AddressChanged" @bind-value="addressQuery" class="form-control" />
+                    }
+                </div>
+                @if (location is null)
+                {
+                    <button disabled type="submit" class="btn btn-primary">Register</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary">Register</button>
+                }
+            </EditForm>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <h2>Log in or sign up to register cooling centers</h2>
+        <NavLink class="nav-link" href="login">Login</NavLink>
+        <NavLink class="nav-link" href="register?returnUrl=add-cooling-centers">Sign Up</NavLink>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private string addressQuery = string.Empty;
+
+    private Location? location = null;
+
+    private IReadOnlyList<Location> addressQueryResults = Array.Empty<Location>();
+
+    private string? error = null;
+
+    private Organization? user;
+
+    private CoolingCenterDTO model = new();
+
+    private bool loaded;
+
+    private List<CoolingCenter> CoolingCenters = new();
+
+    private System.Timers.Timer timer = new(250) { AutoReset = false };
+
+    private void AddressQueryChanged(ChangeEventArgs e)
+    {
+        timer.Stop();
+        timer.Start();
+        addressQuery = e.Value?.ToString() ?? string.Empty;
+    }
+
+    private void AddressChanged(ChangeEventArgs e)
+    {
+        location = null;
+        AddressQueryChanged(e);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (location is null || user is null)
+        {
+            error = "Invalid address";
+            return;
+        }
+        model.Address = addressQuery;
+        model.Latitude = location.Lat;
+        model.Longitude = location.Lon;
+        var id = await CoolingCenterService.CreateCoolingCenterAsync(model, user);
+        user.CoolingCenters.Add(id);
+        await OrganizationService.UpdateOrganizationAsync(user);
+        location = null;
+        addressQuery = string.Empty;
+        addressQueryResults = Array.Empty<Location>();
+        model = new();
+        CoolingCenters.Add(await CoolingCenterService.ReadCoolingCenterAsync(id, user.Country));
+    }
+
+    private void SelectAddress(Location loc)
+    {
+        location = loc;
+        addressQuery = location.Address;
+    }
+
+    private async void OnElapsed(Object? source, System.Timers.ElapsedEventArgs e)
+    {
+        addressQueryResults =
+            string.IsNullOrWhiteSpace(addressQuery) 
+            ? Array.Empty<Location>()
+            : await GeolocationService.GetAddressesAsync(addressQuery);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        timer.Elapsed += OnElapsed;
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated ?? false)
+        {
+            var id = authState.User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var country = authState.User.FindFirst(c => c.Type == ClaimTypes.Country)?.Value;
+            if (id is not null && country is not null)
+            {
+                user = await OrganizationService.ReadOrganizationAsync(id, country);
+                foreach (var coolingCenterId in user.CoolingCenters)
+                    CoolingCenters.Add(await CoolingCenterService.ReadCoolingCenterAsync(coolingCenterId, user.Country));
+            }
+            else
+                user = null;   
+        }
+        loaded = true;
+    }
+    public void Dispose() =>
+        timer.Dispose();
+}

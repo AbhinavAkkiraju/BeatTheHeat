@@ -1,0 +1,56 @@
+﻿@page "/login"
+@model BeatTheHeat.Web.Pages.LoginModel
+@attribute [IgnoreAntiforgeryToken]
+@{
+    ViewData["Title"] = "Log in";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Log in</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+        <link href="css/site.css" rel="stylesheet" />
+        <link href="BeatTheHeat.Web.styles.css" rel="stylesheet" />
+        <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    Login
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Model.ErrorMessage
+                        </div>
+                    }
+ 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Email</label>
+                            <input name="email" type="text" class="form-control" id="txtEmail" />
+                        </div>
+ 
+                        <div class="mb-3">
+                            <label for="txtPassword" class="form-label">Password</label>
+                            <input name="password" type="password" class="form-control" id="txtPassword" />
+                        </div>
+ 
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+ 
+            </div>
+        </div>
+    </body>
+</html>

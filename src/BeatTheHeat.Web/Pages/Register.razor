@@ -1,0 +1,71 @@
+﻿@page "/register"
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager
+@inject IOrganizationService _organizationService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<PageTitle>Login</PageTitle>
+
+<h2>Register</h2>
+<EditForm Model="registration" OnValidSubmit="RegisterOrganization">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="name">Name</label>
+        <InputText id="name" @bind-Value="registration.Name" class="form-control" />
+        <ValidationMessage For="@(() => registration.Name)" />
+    </div>
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="registration.Email" class="form-control" />
+        <ValidationMessage For="@(() => registration.Email)" />
+    </div>
+    <div class="mb-3">
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="registration.Password" class="form-control" type="@(hidePassword ? "password" : "text")" />
+        <i class="bi bi-eye" @onclick="ShowPassword"/>
+        <ValidationMessage For="@(() => registration.Password)" />
+    </div>
+    <div class="mb-3">
+        <label for="country">Country</label>
+        <InputSelect id="country" @bind-Value="registration.Country" class="form-control">
+            @foreach (var country in Utils.Countries)
+            {
+                <option value="@country">@country</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => registration.Country)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+</EditForm>
+<div class="text-danger">
+    <span>@errorMessage</span>
+</div>
+
+@code {
+    private OrganizationDTO registration = new();
+    private string errorMessage = string.Empty;
+
+    private string returnUrl = string.Empty;
+    private bool hidePassword = true;
+
+    private void ShowPassword() =>
+        hidePassword = !hidePassword;
+
+    protected override void OnInitialized()
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var url))
+            returnUrl = url;
+    }
+
+    private async Task RegisterOrganization()
+    {
+        var id = await _organizationService.CreateOrganizationAsync(registration);
+        if (id.HasValue)
+        {
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            NavigationManager.NavigateTo(returnUrl);
+        }
+        else
+            errorMessage = "Bad Request";
+    }
+}
