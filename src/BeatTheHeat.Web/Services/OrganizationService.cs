@@ -1,9 +1,7 @@
 ﻿namespace BeatTheHeat.Web.Services;
 
-using Microsoft.Azure.Cosmos;
 using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Azure.Cosmos;
 
 public class OrganizationService : IOrganizationService
 {
@@ -61,7 +59,7 @@ public class OrganizationService : IOrganizationService
         var org = orgs.First();
         if (!_passwordHashService.VerifyPasswordHash(request.Password, org.PasswordHash))
             return null;
-        
+
         return (org.Id, org.Country);
     }
 

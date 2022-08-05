@@ -1,11 +1,11 @@
-global using System.Text;
-global using System.Linq;
-global using System.Reflection;
-global using System.ComponentModel.DataAnnotations;
-global using Microsoft.Azure.Cosmos;
 global using BeatTheHeat.Web.Models;
 global using BeatTheHeat.Web.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.Azure.Cosmos;
+global using System.ComponentModel.DataAnnotations;
+global using System.Linq;
+global using System.Reflection;
+global using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -38,15 +38,15 @@ public class LoginModel : PageModel
         {
             (var id, var country) = res.Value;
             List<Claim> claims = new();
-            claims.Add(new (ClaimTypes.NameIdentifier, id.ToString()));
-            claims.Add(new (ClaimTypes.Country, country));
+            claims.Add(new(ClaimTypes.NameIdentifier, id.ToString()));
+            claims.Add(new(ClaimTypes.Country, country));
             ClaimsIdentity claimsIdentity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var ctx = _accessor.HttpContext;
             if (ctx is not null)
                 await ctx.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
             return Redirect("/");
-        }  
+        }
         else
         {
             ErrorMessage = "Invalid Credentials";

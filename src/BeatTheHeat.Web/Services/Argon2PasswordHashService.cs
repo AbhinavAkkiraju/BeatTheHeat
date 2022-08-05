@@ -1,7 +1,7 @@
 ﻿namespace BeatTheHeat.Web.Services;
 
-using System.Security.Cryptography;
 using Konscious.Security.Cryptography;
+using System.Security.Cryptography;
 
 public class Argon2PasswordHashService : IPasswordHashService
 {
@@ -13,7 +13,7 @@ public class Argon2PasswordHashService : IPasswordHashService
 
     public bool VerifyPasswordHash(string password, PasswordHash passwordHash) =>
         passwordHash.Hash.SequenceEqual(GetHash(password, passwordHash.Salt));
-    
+
     private static byte[] GetHash(string password, byte[] salt)
     {
         // Use the argonid password hash algorithm for securing the application.

@@ -13,6 +13,6 @@ public interface IOrganizationService
     Task<IList<Organization>> ReadOrganizationsWithEmailAsync(string email);
 
     Task<(Guid, string)?> Login(LoginRequest request);
-    
+
     Task Logout();
 }
