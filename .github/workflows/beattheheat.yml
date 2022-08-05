@@ -8,7 +8,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: ./src/BeatTheHeat.Api/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
-  WORKING_DIRECTORY: ./src/BeatTheHeat.Api
+  WORKING_DIRECTORY: ./src/BeatTheHeat.Web
 jobs:
   build:
     runs-on: ubuntu-latest
