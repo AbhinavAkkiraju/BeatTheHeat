@@ -2,6 +2,26 @@
 
 Created for the [World Youth Coders Hackathon 2022](https://www.worldcodingclub.org/world-youth-coders-hackathon-2022/)
 
+What is BeamX?
+
+Our idea solves health problems. We bring innovation to the health field by creating an app
+and website.
+
+First of all, our website is designed to get more information about the application and how it
+works. You can easily access this information by entering the site.
+Second, we created an application. Depending on the temperature in the location of the app
+users, we show whether you can go outside and for how long. Additionally, it tells you what
+supplies like sunscreen are needed when you go out. Another function of the application is
+to show when and how much water you should drink by looking at the temperature.
+There are many applications such as Water reminders and Thermometers. However, if we
+look at the market, we can see that such an application has not been created. The
+application has many effects on people and the environment. Thanks to the application,
+water is used as little as possible according to the norm, and you will be able to see what
+your needs are. This will help you stay away from health problems. Secondly, due to the
+application, excessive water consumption will be reduced and will help to reduce the water
+problem.
+Finally, I would like to mention that because we will make it available to everyone
+
 ## Frontend
 Multiplatform mobile app built with Flutter and Dart.
 
@@ -19,6 +39,8 @@ Multiplatform mobile app built with Flutter and Dart.
 
 ## Backend
 ASP.NET Core Blazor Server-Side web app with REST APIs for delivering weather and nearby cooling center into.
+
+Organizations can register cooling centers to be seen on the app.
 
 * Continuously deployed to [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/) at: https://beattheheat.azurewebsites.net/
 * Secure authentication utilizing the [Argon2](https://github.com/P-H-C/phc-winner-argon2) password hashing algorithm.
