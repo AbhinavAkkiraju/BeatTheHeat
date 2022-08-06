@@ -86,6 +86,54 @@ Build/Run with [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6
         ]
         ```
 
+    * `/near-address` [GET]
+        * __Gets the nearest cooling centers.__
+        * Max distance 200 km.
+        * *Required query Parameters*:
+            * `address`
+        * Example: 
+        ```json
+        "GET https://localhost:7084/api/v1/cooling-centers/near-address?address=400%20Broad%20St%2C%20Seattle%2C%20WA%2098109"
+        EXAMPLE LOCATIONS, NOT CURRENTLY ACTIVE COOLING CENTERS
+        [
+            {
+                "name": "Seattle center",
+                "longitude": -122.34955,
+                "latitude": 47.6215,
+                "address": "305 Harrison Street, Seattle, WA 98109, United States ",
+                "description": ""
+            },
+            {
+                "name": "Seattle City Hall",
+                "longitude": -122.33006,
+                "latitude": 47.60383,
+                "address": "600 4th Avenue, Seattle, WA 98104, United States ",
+                "description": ""
+            },
+            {
+                "name": "Roosevelt Station",
+                "longitude": -122.31728,
+                "latitude": 47.63834,
+                "address": "12th Avenue East, Seattle, WA 98102, United States ",
+                "description": "Link Light Rail station"
+            },
+            {
+                "name": "SPL Ballard Branch",
+                "longitude": -122.38432,
+                "latitude": 47.66982,
+                "address": "5614 22nd Avenue Northwest, Seattle, WA 98107, United States ",
+                "description": "Seattle Public Library"
+            },
+            {
+                "name": "Roosevelt High School",
+                "longitude": -122.31337,
+                "latitude": 47.67728,
+                "address": "1410 Northeast 66th Street, Seattle, WA 98115, United States ",
+                "description": ""
+            }
+        ]
+        ```
+
 * `/api/v1/geolocation`
     * `/geocode` [GET]
         * __Gets coordinates for an address query.__
@@ -144,3 +192,20 @@ Build/Run with [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6
         }
         ```
 
+    * `/current` [GET]
+        * __Gets the current weather.__
+        * *Required query Parameters*:
+            * `address`
+        * Example: 
+        ```json
+        "GET https://localhost:7084/api/v1/weather-forecast/current-address?address=400%20Broad%20St%2C%20Seattle%2C%20WA%2098109"
+
+        {
+            "date": "2022-08-06T00:40:02.6494856Z",
+            "temperatureC": 23,
+            "temperatureF": 73,
+            "humidity": 57,
+            "summary": null,
+            "city": "Seattle"
+        }
+        ```
