@@ -10,7 +10,8 @@ Multiplatform mobile app built with Flutter and Dart.
 * Uses Qubit to store data
 * Tells user information about water usage, cooling centers near them, the temperature of their city, etc.
 * To Run App: 
-** 
+* 1. Download Flutter SDK (git clone https://github.com/flutter/flutter.git)
+* 2. Download Dart SDK (1.  brew tap dart-lang/dart         2.  brew install dart
 
 ## Backend
 ASP.NET Core Blazor Server-Side web app with REST APIs for delivering weather and nearby cooling center into.
