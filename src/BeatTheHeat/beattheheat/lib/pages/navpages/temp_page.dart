@@ -1,4 +1,6 @@
+import 'package:beattheheat/pages/navpages/main_page.dart';
 import 'package:beattheheat/widgets/app_large_text.dart';
+import 'package:beattheheat/widgets/responsive_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -26,7 +28,7 @@ class TempPage extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 20),
             child: AppLargeText(
-              text: "Safe Sunscreen",
+              text: "Safe With Sunscreen",
             ),
           ),
           SizedBox(height: 30),
@@ -52,7 +54,7 @@ class TempPage extends StatelessWidget {
                           const [
                             TextField(
                               decoration: InputDecoration(
-                                hintText: 'Latitude',
+                                hintText: 'Address',
                                 labelStyle: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
@@ -69,46 +71,32 @@ class TempPage extends StatelessWidget {
                       )
                     )
                   ),
-                  Container(
-                    height: 99,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 5, right: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: 
-                          const [
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Longitude',
-                                labelStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                                disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)
-                                ),
-                                border: OutlineInputBorder(),
-                              )
-                            )
-                          ]
-                      )
-                    )
-                  ),
+                  GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MainPage()));
+                            },
+                            child: Container(
+                                width: 200,
+                                child: ResponsiveButton(
+                                  width: 200,
+                                )),
+                          ),
               ]
             )
           )),
+          SizedBox(height: 20),
           Positioned(
-            top: 70,
+            top: 30,
             child: Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
                   Row(
                     children: [
-                      AppLargeText(size: 22, text: "Temparature: 0 (Fahrenheit)\nTemperature: 0 (Celsius)\nHumidity: 0\nRecommended SPF: 30-70 SPF", color: Colors.black.withOpacity(0.8)),
+                      AppLargeText(size: 16, text: "Temparature: 0 (Fahrenheit)\nTemperature: 0 (Celsius)\nHumidity: 0\nRecommended SPF: 30-70 SPF", color: Colors.black.withOpacity(0.8)),
                     ],
                   ),
               ]),
@@ -116,14 +104,14 @@ class TempPage extends StatelessWidget {
           ),
           Positioned(
             child: Container(
-            margin: const EdgeInsets.only(left: 20, top: 20),
+            margin: const EdgeInsets.only(left: 20, top: 15),
             width: 350,
-            height: 150,
+            height: 210,
             decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.black,
             image: DecorationImage(
-            image: AssetImage("img/sun.jpeg"),
+            image: AssetImage("img/heatindex.jpeg"),
             fit: BoxFit.cover,
          )),
       )

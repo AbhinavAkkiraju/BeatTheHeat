@@ -55,7 +55,7 @@ class CoolingPage extends StatelessWidget {
                           const [
                             TextField(
                               decoration: InputDecoration(
-                                hintText: 'Latitude',
+                                hintText: 'Address',
                                 labelStyle: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
@@ -72,34 +72,7 @@ class CoolingPage extends StatelessWidget {
                       )
                     )
                   ),
-                  Container(
-                    height: 99,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 5, right: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: 
-                          const [
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Longitude',
-                                labelStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                                disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)
-                                ),
-                                border: OutlineInputBorder(),
-                              )
-                            )
-                          ]
-                      )
-                    )
-                  ),
+                  SizedBox(height: 30),
                   GestureDetector(
                             onTap: () {
                               Navigator.push(

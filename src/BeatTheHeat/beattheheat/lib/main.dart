@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           create: (context)=>AppCubits(
           data: DataServices(),
         ),
-          child: DetailPage2(),
+          child: WelcomePage(),
         )
       );
   }
