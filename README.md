@@ -141,7 +141,7 @@ Build/Run with [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6
             * `query`
         * Example: 
         ```json
-        "GET https://beattheheat.azurewebsites.net/api/v1/Geolocation/geocode?query=one%20microsoft%20way%20redmond
+        "GET https://beattheheat.azurewebsites.net/api/v1/Geolocation/geocode?query=one%20microsoft%20way%20redmond"
 
         [
             {
