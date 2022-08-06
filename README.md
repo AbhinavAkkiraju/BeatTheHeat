@@ -5,6 +5,13 @@ Created for the [World Youth Coders Hackathon 2022](https://www.worldcodingclub.
 ## Frontend
 Multiplatform mobile app built with Flutter and Dart.
 
+* Fetches cooling center API and displays closest cooling center to user - based on their address - back out to user interface
+* Fetches weather forecast API and displays temperature and humidity at users location - based on their address - back out to user interface
+* Uses Qubit to store data
+* Tells user information about water usage, cooling centers near them, the temperature of their city, etc.
+* To Run App: 
+** 
+
 ## Backend
 ASP.NET Core Blazor Server-Side web app with REST APIs for delivering weather and nearby cooling center into.
 
