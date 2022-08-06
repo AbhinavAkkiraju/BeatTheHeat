@@ -1,0 +1,42 @@
+﻿@page "/find-cooling-centers"
+@inject ICoolingCenterService CoolingCenterService
+@inject IGeolocationService GeolocationService
+
+<PageTitle>Find Cooling Centers</PageTitle>
+
+<h6>Search for cooling centers</h6>
+<input @bind="inputValue" />
+
+<button class="btn btn-primary" @onclick="Search">Search</button>
+
+@if (coolingCenters is not null)
+{
+    @foreach (var coolingCenter in coolingCenters)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">@coolingCenter.Name</div>
+                <div class="card-subtitle">@coolingCenter.Address<br/>Lat: @coolingCenter.Location.Position.Latitude Long: @coolingCenter.Location.Position.Longitude</div>
+                <div class="card-body">@coolingCenter.Description</div>
+            </div>
+        </div>
+    }
+}
+
+@code {
+
+    private IReadOnlyList<CoolingCenter>? coolingCenters;
+    private string inputValue = string.Empty;
+
+    private async Task Search()
+    {
+        var res = await GeolocationService.GetAddressesAsync(inputValue);
+        if (res.Count > 0)
+        {
+            var loc = res[1];
+            coolingCenters = (await CoolingCenterService.GetNear(loc.Lat, loc.Lon)).ToList();
+        }
+        else
+            coolingCenters = null;
+    }
+}
