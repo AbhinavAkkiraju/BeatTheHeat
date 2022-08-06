@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 public class WeatherForecastController : ControllerBase
 {
     private readonly IWeatherService _weatherService;
+    private readonly IGeolocationService _geolocationService;
 
-    public WeatherForecastController(IWeatherService openWeatherService)
+    public WeatherForecastController(IWeatherService openWeatherService, IGeolocationService geolocationService)
     {
         _weatherService = openWeatherService ?? throw new ArgumentNullException(nameof(openWeatherService));
+        _geolocationService = geolocationService ?? throw new ArgumentNullException(nameof(geolocationService));
     }
 
     [HttpGet("current")]
@@ -23,5 +25,17 @@ public class WeatherForecastController : ControllerBase
             return BadRequest("Longitude must be between -180 and 180");
 
         return await _weatherService.CurrentAsync(latitude, longitude);
+    }
+
+    [HttpGet("current-address")]
+    public async ValueTask<ActionResult<WeatherForecast?>> NearAddress(string address)
+    {
+        var res = await _geolocationService.GetAddressesAsync(address);
+        if (res.Count > 0)
+        {
+            var loc = res[1];
+            return await _weatherService.CurrentAsync(loc.Lat, loc.Lon);
+        }
+        return Ok(null);
     }
 }
