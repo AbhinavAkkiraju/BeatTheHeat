@@ -6,6 +6,7 @@ global using System.ComponentModel.DataAnnotations;
 global using System.Linq;
 global using System.Reflection;
 global using System.Text;
+global using System.Collections.Concurrent;
 
 // Use Dependency injection.
 var builder = WebApplication.CreateBuilder(args);

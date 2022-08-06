@@ -6,7 +6,7 @@ namespace BeatTheHeat.Web.Services;
 public class OpenWeatherService : IWeatherService
 {
     // Cache responses with a timestamp for more efficient api calls.
-    private readonly Dictionary<(double, double), (WeatherForecast, DateTime)> currentCache = new();
+    private readonly ConcurrentDictionary<(double, double), (WeatherForecast, DateTime)> currentCache = new();
     private readonly HttpClient _httpClient;
     private readonly string apiKey;
 

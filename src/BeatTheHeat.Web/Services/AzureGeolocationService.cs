@@ -5,7 +5,7 @@
 /// </summary>
 public class AzureGeolocationService : IGeolocationService
 {
-    private readonly Dictionary<string, (IReadOnlyList<Location>, DateTime)> _cache = new();
+    private readonly ConcurrentDictionary<string, (IReadOnlyList<Location>, DateTime)> _cache = new();
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
 
