@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:beattheheat/pages/navpages/main_page.dart';
 import 'package:beattheheat/widgets/app_large_text.dart';
 import 'package:beattheheat/widgets/app_text.dart';
@@ -6,9 +8,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart';
 
 class CoolingPage extends StatelessWidget {
   const CoolingPage({Key? key}) : super(key: key);
+
+  final url = "https://beattheheat.azurewebsites.net/api/v1/weather-forecast/current-address?";
+
+  
+
+  void postData() async {
+    try {
+      final response = await post(Uri.parse(url), body: {
+        "address": "Address",
+      });
+
+      print(response.body);
+    } catch (er) {}
+  }
+
+  void fetchPosts() async {
+    try {
+      final response = await get(Uri.parse(url));
+      final jsonData = jsonDecode(response.body) as List;
+    } catch (err) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +99,7 @@ class CoolingPage extends StatelessWidget {
                   SizedBox(height: 30),
                   GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MainPage()));
+                              postData();
                             },
                             child: Container(
                                 width: 200,
